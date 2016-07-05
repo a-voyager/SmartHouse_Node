@@ -34,7 +34,7 @@ public class SocketThread extends Thread {
                 @Override
                 public void run() {
                     try {
-                        writer.write("Hello World");
+                        writer.write("0#Hello World");
                         writer.newLine();
                         writer.flush();
                     } catch (IOException e) {
@@ -44,6 +44,11 @@ public class SocketThread extends Thread {
                 }
             };
             timer.schedule(timerTask, 0, 1000);
+            while (true) {
+                String line = reader.readLine();
+                System.out.println(line);
+            }
+
         } catch (IOException e) {
             LogUtils.e("连接失败");
             e.printStackTrace();
