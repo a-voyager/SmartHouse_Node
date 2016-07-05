@@ -7,5 +7,15 @@ package com.jni;
  * Version: 1.0
  */
 public class ControlHelper {
+
+    static {
+        System.loadLibrary("jni");
+    }
+
     public static native void openLED();
+
+    public static void main(String[] args) {
+        ControlHelper.openLED();
+    }
+
 }
