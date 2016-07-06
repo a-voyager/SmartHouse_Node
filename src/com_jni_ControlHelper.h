@@ -15,6 +15,14 @@ extern "C" {
 JNIEXPORT void JNICALL Java_com_jni_ControlHelper_openLED
   (JNIEnv *, jclass);
 
+/*
+ * Class:     com_jni_ControlHelper
+ * Method:    getTmpHmp
+ * Signature: ()[I
+ */
+JNIEXPORT jintArray JNICALL Java_com_jni_ControlHelper_getTmpHmp
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif

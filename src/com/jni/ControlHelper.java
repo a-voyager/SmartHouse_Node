@@ -13,6 +13,7 @@ public class ControlHelper {
     }
 
     public static native void openLED();
+    public static native int[] getTmpHmp();
 
     public static void main(String[] args) {
         ControlHelper.openLED();

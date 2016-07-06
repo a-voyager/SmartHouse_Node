@@ -51,7 +51,8 @@ public class SocketThread extends Thread {
 
         } catch (IOException e) {
             LogUtils.e("连接失败");
-            e.printStackTrace();
+//            e.printStackTrace();
+            this.start();
         }
 
     }
