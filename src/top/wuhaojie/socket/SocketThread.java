@@ -1,12 +1,12 @@
 package top.wuhaojie.socket;
 
 import top.wuhaojie.constant.Constants;
+import top.wuhaojie.threads.ReadThread;
+import top.wuhaojie.threads.WriteThread;
 import top.wuhaojie.utils.LogUtils;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Author: wuhaojie
@@ -29,6 +29,10 @@ public class SocketThread extends Thread {
 
             LogUtils.d("连接成功");
 
+            new ReadThread(reader).start();
+            new WriteThread(writer).start();
+
+            /*
             Timer timer = new Timer();
             TimerTask timerTask = new TimerTask() {
                 @Override
@@ -47,7 +51,7 @@ public class SocketThread extends Thread {
             while (true) {
                 String line = reader.readLine();
                 System.out.println(line);
-            }
+            }*/
 
         } catch (IOException e) {
             LogUtils.e("连接失败");
