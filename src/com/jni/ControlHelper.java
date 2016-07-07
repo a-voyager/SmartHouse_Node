@@ -96,4 +96,30 @@ public class ControlHelper {
      */
     public static native boolean checkHardware();
 
+    /**
+     * 获取风扇状态
+     *
+     * @return 整数类型 0代表停止状态 1代表工作状态
+     */
+    public static native int getFanState();
+
+
+    /**
+     * 获取警报器状态
+     *
+     * @return 整数类型 0代表安静状态 1代表鸣笛状态
+     */
+    public static native int getAlarmSate();
+
+
+    /**
+     * 开始报警
+     */
+    public static native void beginAlarm();
+
+    /**
+     * 停止报警
+     */
+    public static native void stopAlarm();
+
 }
