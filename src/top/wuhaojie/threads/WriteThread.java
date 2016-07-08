@@ -7,8 +7,6 @@ import top.wuhaojie.utils.LogUtils;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * 将信息写入到远程服务端
@@ -20,6 +18,7 @@ import java.util.TimerTask;
 public class WriteThread extends Thread {
 
     private BufferedWriter mBufferedWriter;
+    private boolean mCanRunning;
 
     public WriteThread(BufferedWriter bufferedWriter) {
         mBufferedWriter = bufferedWriter;
@@ -29,25 +28,40 @@ public class WriteThread extends Thread {
     public void run() {
         super.run();
 
-        Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    // DEBUG
-                    InfoItem info = mInfoItem;
+//        Timer timer = new Timer();
+//        TimerTask timerTask = new TimerTask() {
+//            @Override
+//            public void run() {
+//                try {
+//                    // DEBUG
+////                    InfoItem info = mInfoItem;
 //                    InfoItem info = getInfo();
-                    String json = JsonHelper.toJson(info);
-                    mBufferedWriter.write(json);
-                    mBufferedWriter.newLine();
-                    mBufferedWriter.flush();
-                } catch (IOException e) {
-                    LogUtils.e("写入失败");
-                    timer.cancel();
-                }
+//                    String json = JsonHelper.toJson(info);
+//                    mBufferedWriter.write(json);
+//                    mBufferedWriter.newLine();
+//                    mBufferedWriter.flush();
+//                } catch (IOException e) {
+//                    LogUtils.e("写入失败");
+//                    timer.cancel();
+//                }
+//            }
+//        };
+//        timer.schedule(timerTask, 0, 1000);
+
+        mCanRunning = true;
+        while (mCanRunning) {
+            InfoItem info = getInfo();
+            String json = JsonHelper.toJson(info);
+            try {
+                mBufferedWriter.write(json);
+                mBufferedWriter.newLine();
+                mBufferedWriter.flush();
+            } catch (IOException e) {
+                LogUtils.e("发送数据至服务器失败, 请检查服务器是否断开连接");
+                mCanRunning = false;
             }
-        };
-        timer.schedule(timerTask, 0, 1000);
+        }
+
 
     }
 
@@ -122,7 +136,6 @@ public class WriteThread extends Thread {
 
         return mInfoItem;
     }
-
 
 
 }

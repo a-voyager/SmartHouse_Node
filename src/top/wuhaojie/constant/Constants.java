@@ -20,5 +20,5 @@ public interface Constants {
     String COMMAND_OPEN_FAN = "open-fan";
     String COMMAND_CLOSE_FAN = "close-fan";
 
-    String CONFIG_FILE_PATH = "D://smart_house_ras.properties";
+    String CONFIG_FILE_PATH = "/home/smart_house_ras.properties";
 }
