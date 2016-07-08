@@ -3,6 +3,7 @@ package top.wuhaojie.socket;
 import top.wuhaojie.constant.Constants;
 import top.wuhaojie.threads.ReadThread;
 import top.wuhaojie.threads.WriteThread;
+import top.wuhaojie.utils.ConfigUtils;
 import top.wuhaojie.utils.LogUtils;
 
 import java.io.*;
@@ -20,7 +21,16 @@ public class SocketThread extends Thread {
     public void run() {
         super.run();
         try {
-            Socket socket = new Socket(Constants.SERVER_IP_ADDR, Constants.SERVER_PORT);
+            String serverIpAddr = ConfigUtils.readConfig("SERVER_IP_ADDR");
+            String serverPortStr = ConfigUtils.readConfig("SERVER_PORT");
+            int port = 0;
+            if (serverIpAddr == null || serverPortStr == null || serverIpAddr.isEmpty() || serverPortStr.isEmpty()) {
+                serverIpAddr = Constants.SERVER_IP_ADDR;
+                port = Constants.SERVER_PORT;
+            } else {
+                port = Integer.valueOf(serverPortStr);
+            }
+            Socket socket = new Socket(serverIpAddr, port);
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
 
@@ -54,7 +64,7 @@ public class SocketThread extends Thread {
             }*/
 
         } catch (IOException e) {
-            LogUtils.e("连接失败");
+            LogUtils.e("连接失败, 请确保服务器已开启");
 //            e.printStackTrace();
             this.start();
         }

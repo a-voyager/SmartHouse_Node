@@ -1,5 +1,7 @@
 package com.jni;
 
+import top.wuhaojie.utils.LogUtils;
+
 /**
  * Author: wuhaojie
  * E-mail: w19961009@126.com
@@ -9,7 +11,11 @@ package com.jni;
 public class ControlHelper {
 
     static {
-        System.loadLibrary("jni");
+        try {
+            System.loadLibrary("jni");
+        } catch (Exception e) {
+            LogUtils.e("JNI库加载失败");
+        }
     }
 
     /**
