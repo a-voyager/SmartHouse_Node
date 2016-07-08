@@ -29,52 +29,52 @@ public class ControlDao extends Thread {
                 LogUtils.d("开窗");
 //                if (getCurtainState() <= 0) {
                 openCurtain();
-                while (getCurtainState() <= 0) {
-                    openCurtain();
-                }
+//                while (getCurtainState() <= 0) {
+//                    openCurtain();
+//                }
                 LogUtils.d("成功！");
 //                }
                 break;
             case Constants.COMMAND_CLOSE_CURTAIN:
                 LogUtils.d("关窗");
                 closeCurtain();
-                while (getCurtainState() >= 1) {
-                    closeCurtain();
-                }
+//                while (getCurtainState() >= 1) {
+//                    closeCurtain();
+//                }
                 LogUtils.d("成功！");
                 break;
             case Constants.COMMAND_OPEN_FAN:
                 LogUtils.d("开风扇");
 //                if (getFanState() <= 0) {
                 openFan();
-                while (getFanState() <= 0) {
-                    openFan();
-                }
+//                while (getFanState() <= 0) {
+//                    openFan();
+//                }
                 LogUtils.d("成功！");
 //                }
                 break;
             case Constants.COMMAND_CLOSE_FAN:
                 LogUtils.d("关风扇");
                 closeFan();
-                while (getFanState() >= 1) {
-                    closeFan();
-                }
+//                while (getFanState() >= 1) {
+//                    closeFan();
+//                }
                 LogUtils.d("成功！");
                 break;
             case Constants.COMMAND_OPEN_ALARM:
                 LogUtils.d("报警");
                 beginAlarm();
-                while (getAlarmSate() <= 0) {
-                    beginAlarm();
-                }
+//                while (getAlarmSate() <= 0) {
+//                    beginAlarm();
+//                }
                 LogUtils.d("成功！");
                 break;
             case Constants.COMMAND_CLOSE_ALARM:
                 LogUtils.d("停止报警");
                 stopAlarm();
-                while (getAlarmSate() >= 1) {
-                    stopAlarm();
-                }
+//                while (getAlarmSate() >= 1) {
+//                    stopAlarm();
+//                }
                 LogUtils.d("成功！");
                 break;
             default:

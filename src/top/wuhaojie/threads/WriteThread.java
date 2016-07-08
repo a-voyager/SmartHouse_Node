@@ -125,12 +125,12 @@ public class WriteThread extends Thread {
         }
 
 //        int curtainState = 1;
-        try {
-            int curtainState = ControlHelper.getCurtainState();
-            mInfoItem.setCurtainState(curtainState + "");
-        } catch (Exception e) {
-            LogUtils.e("窗帘状态读取失败");
-        }
+//        try {
+//            int curtainState = ControlHelper.getCurtainState();
+//            mInfoItem.setCurtainState(curtainState + "");
+//        } catch (Exception e) {
+//            LogUtils.e("窗帘状态读取失败");
+//        }
 
         mInfoItem.setTimeStamp(System.currentTimeMillis());
 
