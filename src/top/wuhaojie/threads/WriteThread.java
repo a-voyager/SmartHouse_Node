@@ -46,7 +46,7 @@ public class WriteThread extends Thread {
 //                }
 //            }
 //        };
-//        timer.schedule(timerTask, 0, 1000);
+//        timer.schedule(timerTask, 0, 60);
 
         mCanRunning = true;
         while (mCanRunning) {
@@ -133,6 +133,15 @@ public class WriteThread extends Thread {
         }
 
         mInfoItem.setTimeStamp(System.currentTimeMillis());
+
+        System.out.println(mInfoItem.toString());
+
+        try {
+            Thread.sleep(60);
+        } catch (InterruptedException e) {
+
+            LogUtils.e("休眠失败");
+        }
 
         return mInfoItem;
     }

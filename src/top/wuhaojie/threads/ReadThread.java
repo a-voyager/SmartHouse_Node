@@ -16,6 +16,7 @@ import java.io.IOException;
 public class ReadThread extends Thread {
 
     private BufferedReader mBufferedReader;
+    private ControlDao mControlDao = new ControlDao();
 
     public ReadThread(BufferedReader bufferedReader) {
         mBufferedReader = bufferedReader;
@@ -24,11 +25,12 @@ public class ReadThread extends Thread {
     @Override
     public void run() {
         super.run();
+        mControlDao.start();
         while (true) {
             String line = null;
             try {
                 line = mBufferedReader.readLine();
-                ControlDao.control(line);
+                ControlDao.addCommand(line);
             } catch (IOException e) {
                 LogUtils.e(getClass().getSimpleName(), "读取失败");
             }
