@@ -25,12 +25,15 @@ public class ReadThread extends Thread {
     @Override
     public void run() {
         super.run();
-        mControlDao.start();
+//        mControlDao.start();
         while (true) {
             String line = null;
             try {
                 line = mBufferedReader.readLine();
-                ControlDao.addCommand(line);
+//                ControlDao.addCommand(line);
+                WriteThread.setCanGetInfo(false);
+                ControlDao.control(line);
+                WriteThread.setCanGetInfo(true);
             } catch (IOException e) {
                 LogUtils.e(getClass().getSimpleName(), "读取失败");
             }

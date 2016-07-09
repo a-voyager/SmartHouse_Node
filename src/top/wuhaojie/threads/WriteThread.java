@@ -20,6 +20,12 @@ public class WriteThread extends Thread {
     private BufferedWriter mBufferedWriter;
     private boolean mCanRunning;
 
+    private static boolean canGetInfo = true;
+
+    public static void setCanGetInfo(boolean can) {
+        canGetInfo = can;
+    }
+
     public WriteThread(BufferedWriter bufferedWriter) {
         mBufferedWriter = bufferedWriter;
     }
@@ -50,15 +56,17 @@ public class WriteThread extends Thread {
 
         mCanRunning = true;
         while (mCanRunning) {
-            InfoItem info = getInfo();
-            String json = JsonHelper.toJson(info);
-            try {
-                mBufferedWriter.write(json);
-                mBufferedWriter.newLine();
-                mBufferedWriter.flush();
-            } catch (IOException e) {
-                LogUtils.e("发送数据至服务器失败, 请检查服务器是否断开连接");
-                mCanRunning = false;
+            if (canGetInfo) {
+                InfoItem info = getInfo();
+                String json = JsonHelper.toJson(info);
+                try {
+                    mBufferedWriter.write(json);
+                    mBufferedWriter.newLine();
+                    mBufferedWriter.flush();
+                } catch (IOException e) {
+                    LogUtils.e("发送数据至服务器失败, 请检查服务器是否断开连接");
+                    mCanRunning = false;
+                }
             }
         }
 
@@ -116,9 +124,9 @@ public class WriteThread extends Thread {
             LogUtils.e("风速读取失败");
         }
 
-//        boolean isSafe = true;
+        boolean isSafe = true;
         try {
-            boolean isSafe = ControlHelper.getIsSafe();
+//            boolean isSafe = ControlHelper.getIsSafe();
             mInfoItem.setIsSafe(isSafe + "");
         } catch (Exception e) {
             LogUtils.e("是否安全读取失败");

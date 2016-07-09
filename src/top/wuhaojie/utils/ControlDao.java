@@ -2,7 +2,7 @@ package top.wuhaojie.utils;
 
 import top.wuhaojie.constant.Constants;
 
-import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.LinkedBlockingDeque;
 
 import static com.jni.ControlHelper.*;
 
@@ -14,15 +14,16 @@ import static com.jni.ControlHelper.*;
  */
 public class ControlDao extends Thread {
 
-    private static ConcurrentLinkedDeque<String> mQueue = new ConcurrentLinkedDeque<>();
+    private static LinkedBlockingDeque<String> mQueue = new LinkedBlockingDeque<>();
     private boolean canRun = true;
 
     public static void addCommand(String command) {
-        mQueue.add(command);
 //        mQueue.add(command);
+//        mQueue.add(command);
+        mQueue.offer(command);
     }
 
-    private void control(String command) {
+    public static void control(String command) {
 
         switch (command) {
             case Constants.COMMAND_OPEN_CURTAIN:
@@ -87,11 +88,19 @@ public class ControlDao extends Thread {
     public void run() {
         super.run();
         while (canRun) {
-            if (!mQueue.isEmpty()) {
-                String s = mQueue.poll();
+//            if (!mQueue.isEmpty()) {
+//                String s = mQueue.poll();
+//                control(s);
+//
+//            }
+            try {
+                String s = mQueue.take();
                 control(s);
-
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+
+
         }
     }
 
